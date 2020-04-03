@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pytorch-stacked-hourglass',
-    version='1.0.0a10',
+    version='1.0.0a11',
     maintainer='Aiden Nibali',
     url='https://github.com/anibali/pytorch-stacked-hourglass',
     packages=find_packages('src'),

@@ -51,10 +51,10 @@ class HumanPosePredictor:
                                    device=self.device, dtype=torch.float32)
         for i, raw_image in enumerate(raw_images):
             input_tensor[i] = self.prepare_image(raw_image)
-        heatmaps = self.do_forward(input_tensor)[-1].cpu()
+        heatmaps = self.do_forward(input_tensor)[-1]
         if flip:
             flip_input = fliplr(input_tensor)
-            flip_heatmaps = self.do_forward(flip_input)[-1].cpu()
+            flip_heatmaps = self.do_forward(flip_input)[-1]
             heatmaps += flip_back(flip_heatmaps, self.data_info.hflip_indices)
             heatmaps /= 2
         if is_batched:
@@ -78,7 +78,7 @@ class HumanPosePredictor:
         """
         is_batched = _check_batched(images)
         raw_images = images if is_batched else images.unsqueeze(0)
-        heatmaps = self.estimate_heatmaps(raw_images, flip=flip).cpu()
+        heatmaps = self.estimate_heatmaps(raw_images, flip=flip)
         coords = final_preds_untransformed(heatmaps, (64, 64))
         # Rescale coords to pixel space of specified images.
         for i, image in enumerate(raw_images):
